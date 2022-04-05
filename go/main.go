@@ -1,5 +1,9 @@
 package main
 
+import (
+	"math"
+)
+
 type ListNode struct {
 	Val  int
 	Next *ListNode
@@ -19,6 +23,28 @@ func reverseList(head *ListNode) *ListNode {
 		tmp2 = t
 	}
 	return tmp1
+}
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
+}
+func maxProfit(prices []int) int {
+	dp := make([]int, 2)
+	//dp[i]=max(dp[i-1],prices[i]-min)
+	min := math.MaxInt32
+	for k, v := range prices {
+		if v < min {
+			min = v
+		}
+		if k != 0 {
+			dp[k%2] = max(dp[(k-1)%2], v-min)
+		} else {
+			dp[k] = 0
+		}
+	}
+	return max(dp[0], dp[1])
 }
 func main() {
 
