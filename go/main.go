@@ -57,6 +57,36 @@ func twoSum(nums []int, target int) []int {
 	}
 	return nil
 }
+func firstUniqChar(s string) byte {
+	var hMap map[byte]int
+	tmp := []byte(s)
+	hMap = map[byte]int{}
+	for k, v := range tmp {
+		if _, ok := hMap[v]; ok {
+			hMap[v] = -1
+			continue
+		}
+		hMap[v] = k
+	}
+	index := math.MaxInt32
+	for _, v := range hMap {
+		if v == -1 {
+			continue
+		}
+		index = min(v, index)
+	}
+	if index == math.MaxInt32 {
+		return ' '
+	} else {
+		return tmp[index]
+	}
+}
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
+}
 func main() {
 
 }

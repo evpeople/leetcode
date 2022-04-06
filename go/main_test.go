@@ -50,3 +50,24 @@ func Test_twoSum(t *testing.T) {
 		})
 	}
 }
+
+func Test_firstUniqChar(t *testing.T) {
+	type args struct {
+		s string
+	}
+	tests := []struct {
+		name string
+		args args
+		want byte
+	}{
+		// {"test1", args{"abaccdeff"}, 'b'},
+		{"test2", args{"cc"}, ' '},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := firstUniqChar(tt.args.s); got != tt.want {
+				t.Errorf("firstUniqChar() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
