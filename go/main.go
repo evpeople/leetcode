@@ -46,6 +46,17 @@ func maxProfit(prices []int) int {
 	}
 	return max(dp[0], dp[1])
 }
+func twoSum(nums []int, target int) []int {
+	hashMap := make(map[int]int)
+	for i := 0; i < len(nums); i++ {
+		if v, ok := hashMap[nums[i]]; ok {
+			return []int{i, v}
+		} else {
+			hashMap[target-nums[i]] = i
+		}
+	}
+	return nil
+}
 func main() {
 
 }
