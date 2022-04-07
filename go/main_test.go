@@ -2,6 +2,7 @@ package main
 
 import (
 	"reflect"
+	"sort"
 	"testing"
 )
 
@@ -90,6 +91,30 @@ func Test_isVaild(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := isVaild(tt.args.s); got != tt.want {
 				t.Errorf("isVaild() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_merge(t *testing.T) {
+	type args struct {
+		nums1 []int
+		m     int
+		nums2 []int
+		n     int
+	}
+	tests := []struct {
+		name string
+		args args
+	}{
+		{"test2", args{[]int{2, 0}, 1, []int{1}, 1}},
+		{"test1", args{[]int{1, 2, 3, 0, 0, 0}, 3, []int{2, 5, 6}, 3}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			merge(tt.args.nums1, tt.args.m, tt.args.nums2, tt.args.n)
+			if !sort.IsSorted(sort.IntSlice(tt.args.nums1)) {
+				t.Error(tt.args.nums1)
 			}
 		})
 	}
