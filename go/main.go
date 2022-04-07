@@ -87,6 +87,36 @@ func min(a, b int) int {
 	}
 	return b
 }
+func isVaild(s string) bool {
+	tmp := []byte(s)
+	stack := make([]byte, 0)
+	for _, v := range tmp {
+		if v == '(' || v == '{' || v == '[' {
+			stack = append(stack, v)
+		} else {
+			ans := true
+			if len(stack) == 0 {
+				return false
+			}
+			value := stack[len(stack)-1]
+
+			switch value {
+			case '(':
+				ans = (v == ')')
+			case '{':
+				ans = (v == '}')
+			case '[':
+				ans = (v == ']')
+			}
+			if ans {
+				stack = stack[:len(stack)-1]
+			} else {
+				return false
+			}
+		}
+	}
+	return len(stack) == 0
+}
 func main() {
 
 }

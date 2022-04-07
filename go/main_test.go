@@ -71,3 +71,26 @@ func Test_firstUniqChar(t *testing.T) {
 		})
 	}
 }
+
+func Test_isVaild(t *testing.T) {
+	type args struct {
+		s string
+	}
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		{"test1", args{"()"}, true},
+		{"test2", args{"(]"}, false},
+		{"test3", args{"([)]"}, false},
+		{"test4", args{"("}, false},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := isVaild(tt.args.s); got != tt.want {
+				t.Errorf("isVaild() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
