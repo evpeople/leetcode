@@ -107,6 +107,7 @@ func Test_merge(t *testing.T) {
 		name string
 		args args
 	}{
+		{"test3", args{[]int{0}, 0, []int{1}, 1}},
 		{"test2", args{[]int{2, 0}, 1, []int{1}, 1}},
 		{"test1", args{[]int{1, 2, 3, 0, 0, 0}, 3, []int{2, 5, 6}, 3}},
 	}

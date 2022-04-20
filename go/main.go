@@ -117,33 +117,36 @@ func isVaild(s string) bool {
 	}
 	return len(stack) == 0
 }
-func merge(nums1 []int, m int, nums2 []int, n int) {
-	tmp := []int{}
-	i := 0
-	j := 0
-	for j < m {
-		v := nums1[j]
-		for i < n {
-			v2 := nums2[i]
-			if v2 > v {
-				tmp = append(tmp, v)
-				j++
-				break
-			} else {
-				tmp = append(tmp, v2)
-				i++
-			}
-		}
-		if i == n {
-			tmp = append(tmp, nums1[j:m]...)
-			break
-		}
-	}
-	if i != n {
-		tmp = append(tmp, nums2[i:]...)
-	}
-	copy(nums1, tmp)
 
+/*
+void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+    int i = nums1.size() - 1;
+    m--;
+    n--;
+    while (n >= 0) {
+        while (m >= 0 && nums1[m] > nums2[n]) {
+            swap(nums1[i--], nums1[m--]);
+        }
+        swap(nums1[i--], nums2[n--]);
+    }
+}
+*/
+func merge(nums1 []int, m int, nums2 []int, n int) {
+	index := len(nums1) - 1
+	// i := m - 1
+	// j := n - 1
+	m--
+	n--
+	for n != -1 {
+		for m != -1 && nums1[m] > nums2[n] {
+			nums1[index], nums1[m] = nums1[m], nums1[index]
+			index--
+			m--
+		}
+		nums1[index] = nums2[n]
+		index--
+		n--
+	}
 }
 func main() {
 
