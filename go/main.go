@@ -379,6 +379,43 @@ func spiralOrder(matrix [][]int) []int {
 	}
 	return order
 }
+func longestPalindrome(s string) string {
+	lens := len(s)
+	maxLen := 1
+	if lens < 2 {
+		return s
+	}
+	dp := make([][]bool, len(s))
+	for index := range dp {
+		dp[index] = make([]bool, len(s))
+		dp[index][index] = true
+	}
+	begin := 0
+	for l := 2; l <= lens; l++ {
+		for i := 0; i < lens; i++ {
+			j := l + i - 1
+			if j >= lens {
+				break
+			}
+			if s[i] != s[j] {
+				dp[i][j] = false
+			} else {
+				if j-i < 3 {
+					dp[i][j] = true
+				} else {
+					dp[i][j] = dp[i+1][j-1]
+				}
+			}
+
+			if dp[i][j] && j-i+1 > maxLen {
+				maxLen = j - i + 1
+				begin = i
+			}
+		}
+	}
+	return s[begin : begin+maxLen]
+
+}
 func main() {
 
 }
