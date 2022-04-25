@@ -169,6 +169,28 @@ func getIntersectionNode(headA, headB *ListNode) *ListNode {
 		return nil
 	}
 }
+func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
+	i1 := &ListNode{}
+	tmp := i1
+	for list2 != nil && list1 != nil {
+		if list1.Val > list2.Val {
+			i1.Next = list2
+			i1 = i1.Next
+			list2 = list2.Next
+		} else {
+			i1.Next = list1
+			i1 = i1.Next
+			list1 = list1.Next
+		}
+	}
+	if list1 != nil {
+		i1.Next = list1
+	}
+	if list2 != nil {
+		i1.Next = list2
+	}
+	return tmp.Next
+}
 func main() {
 
 }
