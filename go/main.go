@@ -248,6 +248,23 @@ func inorderTraversal(root *TreeNode) []int {
 	}
 	return ans
 }
+func deleteDuplicates(head *ListNode) *ListNode {
+	slow := head
+	quick := head
+	for quick != nil {
+		for {
+			if quick.Next != nil && quick.Val == quick.Next.Val {
+				quick = quick.Next
+			} else {
+				break
+			}
+		}
+		slow.Next = quick.Next
+		slow = slow.Next
+		quick = quick.Next
+	}
+	return head
+}
 func main() {
 
 }
