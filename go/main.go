@@ -148,6 +148,27 @@ func merge(nums1 []int, m int, nums2 []int, n int) {
 		n--
 	}
 }
+func getIntersectionNode(headA, headB *ListNode) *ListNode {
+	headBP := headB
+	headAP := headA
+	if headA != nil && headB != nil {
+		for headA != headB {
+			if headA == nil {
+				headA = headBP
+			} else {
+				headA = headA.Next
+			}
+			if headB == nil {
+				headB = headAP
+			} else {
+				headB = headB.Next
+			}
+		}
+		return headA
+	} else {
+		return nil
+	}
+}
 func main() {
 
 }
