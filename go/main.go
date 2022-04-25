@@ -228,6 +228,26 @@ func hasCycle(head *ListNode) bool {
 	return true
 }
 
+type TreeNode struct {
+	Val   int
+	Left  *TreeNode
+	Right *TreeNode
+}
+
+func inorderTraversal(root *TreeNode) []int {
+	if root == nil {
+		return nil
+	}
+	ans := make([]int, 0)
+	if root.Left != nil {
+		ans = append(ans, inorderTraversal(root.Left)...)
+	}
+	ans = append(ans, root.Val)
+	if root.Right != nil {
+		ans = append(ans, inorderTraversal(root.Right)...)
+	}
+	return ans
+}
 func main() {
 
 }
