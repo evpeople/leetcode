@@ -120,3 +120,66 @@ func Test_merge(t *testing.T) {
 		})
 	}
 }
+
+func Test_mergeTwoLists(t *testing.T) {
+	type args struct {
+		list1 *ListNode
+		list2 *ListNode
+	}
+	tests := []struct {
+		name string
+		args args
+		want *ListNode
+	}{
+		// TODO: Add test cases.
+		{"test1", args{list1: &ListNode{1, &ListNode{2, &ListNode{4, nil}}}, list2: &ListNode{1, &ListNode{3, &ListNode{4, nil}}}}, &ListNode{1, &ListNode{1, &ListNode{2, &ListNode{3, &ListNode{4, &ListNode{4, nil}}}}}}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := mergeTwoLists(tt.args.list1, tt.args.list2); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("mergeTwoLists() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_addStrings(t *testing.T) {
+	type args struct {
+		num1 string
+		num2 string
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{"test1", args{num1: "4321", num2: "1234"}, "5555"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := addStrings(tt.args.num1, tt.args.num2); got != tt.want {
+				t.Errorf("addStrings() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_deleteDuplicates(t *testing.T) {
+	type args struct {
+		head *ListNode
+	}
+	tests := []struct {
+		name string
+		args args
+		want *ListNode
+	}{
+		{"test1", args{head: &ListNode{1, &ListNode{1, &ListNode{2, &ListNode{3, &ListNode{3, nil}}}}}}, &ListNode{1, &ListNode{2, &ListNode{3, nil}}}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := deleteDuplicates(tt.args.head); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("deleteDuplicates() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
