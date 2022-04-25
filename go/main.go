@@ -208,6 +208,26 @@ func addStrings(num1 string, num2 string) string {
 	}
 	return ans
 }
+func hasCycle(head *ListNode) bool {
+	turtle := head
+	if turtle == nil {
+		return false
+	}
+	rabbit := head.Next
+	for rabbit != turtle && rabbit != nil && turtle != nil {
+		if rabbit.Next != nil {
+			rabbit = rabbit.Next.Next
+		} else {
+			rabbit = rabbit.Next
+		}
+		turtle = turtle.Next
+	}
+	if rabbit == nil {
+		return false
+	}
+	return true
+}
+
 func main() {
 
 }
