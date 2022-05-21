@@ -2,6 +2,7 @@ package shoope
 
 import (
 	"container/list"
+	"sort"
 	"strconv"
 )
 
@@ -425,4 +426,57 @@ func levelOrder(root *TreeNode) [][]int {
 		ret = append(ret, le)
 	}
 	return ret
+}
+func minDistance(word1 string, word2 string) int {
+	n := len(word1)
+	m := len(word2)
+	if n*m == 0 {
+		return n + m
+	}
+	dp := make([][]int, n+1)
+	for i := 0; i <= n; i++ {
+		dp[i] = make([]int, m+1)
+		for j := 0; j <= m; j++ {
+			if i == 0 {
+				dp[i][j] = j
+			} else if j == 0 {
+				dp[i][j] = i
+			} else {
+				if word1[i-1] == word2[j-1] {
+					dp[i][j] = dp[i-1][j-1]
+				} else {
+					dp[i][j] = min(dp[i-1][j-1]+1, min(dp[i-1][j]+1, dp[i][j-1]+1))
+				}
+			}
+		}
+	}
+	return dp[n][m]
+}
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
+}
+func searchRange(nums []int, target int) []int {
+	leftmost := sort.SearchInts(nums, target)
+	if leftmost == len(nums) || nums[leftmost] != target {
+		return []int{-1, -1}
+	}
+	rightmost := sort.SearchInts(nums, target+1) - 1
+	return []int{leftmost, rightmost}
+}
+
+// func threeSum(nums []int) [][]int {
+
+// }
+func maxSubArray(nums []int) int {
+	dp := make([]int, len(nums))
+	dp[0] = nums[0]
+	ans := dp[0]
+	for i := 1; i < len(nums); i++ {
+		dp[i] = max(dp[i-1]+nums[i], nums[i])
+		ans = max(dp[i], ans)
+	}
+	return ans
 }
