@@ -416,6 +416,26 @@ func longestPalindrome(s string) string {
 	return s[begin : begin+maxLen]
 
 }
+func sumNumbers(root *TreeNode) int {
+	var a func(*TreeNode, int)
+	ans := 0
+	a = func(root *TreeNode, val int) {
+		if root.Left == nil && root.Right == nil {
+			ans += (val + root.Val)
+			return
+		}
+
+		if root.Right != nil {
+			a(root.Right, (root.Val+val)*10)
+		}
+		if root.Left != nil {
+			a(root.Left, (root.Val+val)*10)
+		}
+
+	}
+	a(root, 0)
+	return ans
+}
 func main() {
 
 }
