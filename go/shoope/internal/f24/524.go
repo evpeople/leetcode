@@ -1,7 +1,6 @@
 package f24
 
 import (
-	"container/heap"
 	"math"
 	"sort"
 )
@@ -100,10 +99,61 @@ func minWindow(s string, t string) string {
 	}
 	return s[ansL:ansR]
 }
-func buildHeap(nums []int) []int {
-	heap.Init()
+func buildHeap(nums []int) {
+	n := len(nums)
+	for i := n/2 - 1; i >= 0; i-- { //从第一个非叶子节点开始处理
+		down(nums, i, n)
+	}
+}
+func down(nums []int, i0, n int) {
+	i := i0
+	for {
+		j1 := 2*i + 1 //对应的叶子节点
+		if j1 >= n || j1 < 0 {
+			break
+		}
+		j := j1
+		//j2 是左孩子
+		if j2 := j1 + 1; j2 < n && nums[j2] > nums[j1] {
+			j = j2 //构建大根堆，找到更大的那个。
+		}
+		if nums[i] > nums[j] {
+			break //父节点大于子节点
+		}
+		nums[i], nums[j] = nums[j], nums[i]
+		i = j //下次判断是否要继续下降
+	}
+}
+func up(nums []int, j int) {
+	for {
+		i := (j - 1) / 2
+		if i == j || nums[j] > nums[i] {
+			break
+		}
+		nums[i], nums[j] = nums[j], nums[i]
+		j = i
+	}
 }
 
-func findKthLargest(nums []int, k int) int {
+func pop(nums *[]int) {
+	n := len(*nums) - 1
+	(*nums)[0], (*nums)[n] = (*nums)[n], (*nums)[0]
+	down(*nums, 0, n)
+	*nums = (*nums)[:n]
 
+}
+
+// func pop(nums []int) {
+// 	n := len(nums) - 1
+// 	(nums)[0], (nums)[n] = (nums)[n], (nums)[0]
+// 	down(nums, 0, n)
+// 	&nums = &nums[2:]
+
+// }
+func findKthLargest(nums []int, k int) int {
+	buildHeap(nums)
+	for i := 0; i < k-1; i++ {
+		pop(&nums)
+	}
+	return nums[0]
 }
