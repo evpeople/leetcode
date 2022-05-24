@@ -1,6 +1,10 @@
 package f24
 
-import "sort"
+import (
+	"container/heap"
+	"math"
+	"sort"
+)
 
 func threeSum(nums []int) [][]int {
 	n := len(nums)
@@ -59,4 +63,47 @@ func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
 		return left
 	}
 	return right
+}
+func minWindow(s string, t string) string {
+	ori, cnt := map[byte]int{}, map[byte]int{}
+	for i := 0; i < len(t); i++ {
+		ori[t[i]]++
+	}
+	sLen := len(s)
+	len := math.MaxInt32
+	ansL, ansR := -1, -1
+	check := func() bool {
+		for k, v := range ori {
+			if cnt[k] < v { //已经存在的数据
+				return false
+			}
+		}
+		return true
+	}
+	for l, r := 0, 0; r < sLen; r++ {
+		if r < sLen && ori[s[r]] > 0 {
+			cnt[s[r]]++ //这个字母是需要的，所以 ++
+		}
+		for check() && l <= r { //检查ori中的每个字母是否都有了足够的数据来覆盖
+			if r-l+1 < len {
+				len = r - l + 1
+				ansL, ansR = l, l+len
+			}
+			if _, ok := ori[s[l]]; ok {
+				cnt[s[l]]-- // -- 是因为，下一次循环要把指针再右移，这个数据就不重要了。
+			}
+			l++
+		}
+	}
+	if ansL == -1 {
+		return ""
+	}
+	return s[ansL:ansR]
+}
+func buildHeap(nums []int) []int {
+	heap.Init()
+}
+
+func findKthLargest(nums []int, k int) int {
+
 }
