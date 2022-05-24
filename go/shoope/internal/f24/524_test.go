@@ -1,6 +1,8 @@
 package f24
 
-import "testing"
+import (
+	"testing"
+)
 
 func Test_findKthLargest(t *testing.T) {
 	type args struct {
@@ -18,6 +20,26 @@ func Test_findKthLargest(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := findKthLargest(tt.args.nums, tt.args.k); got != tt.want {
 				t.Errorf("findKthLargest() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_longestCommonPrefix(t *testing.T) {
+	type args struct {
+		strs []string
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{name: "test1", args: args{[]string{"flower", "flow", "flight"}}, want: "fl"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := longestCommonPrefix(tt.args.strs); got != tt.want {
+				t.Errorf("longestCommonPrefix() = %v, want %v", got, tt.want)
 			}
 		})
 	}
