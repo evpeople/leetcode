@@ -171,3 +171,20 @@ func preorderTraversal(root *TreeNode) []int {
 	}
 	return ans
 }
+
+type ListNode struct {
+	Val  int
+	Next *ListNode
+}
+
+func getKthFromEnd(head *ListNode, k int) *ListNode {
+	cur := head
+	for i := 0; i < k; i++ {
+		cur = cur.Next
+	}
+	for cur != nil {
+		cur = cur.Next
+		head = head.Next
+	}
+	return head
+}
