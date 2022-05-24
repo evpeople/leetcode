@@ -157,3 +157,17 @@ func findKthLargest(nums []int, k int) int {
 	}
 	return nums[0]
 }
+func preorderTraversal(root *TreeNode) []int {
+	if root == nil {
+		return nil
+	}
+	ans := make([]int, 0)
+	ans = append(ans, root.Val)
+	if root.Left != nil {
+		ans = append(ans, preorderTraversal(root.Left)...)
+	}
+	if root.Right != nil {
+		ans = append(ans, preorderTraversal(root.Right)...)
+	}
+	return ans
+}
