@@ -4,7 +4,6 @@ import (
 	"math"
 	"sort"
 	"strconv"
-	"strings"
 )
 
 func threeSum(nums []int) [][]int {
@@ -273,4 +272,7 @@ func min(x, y int) int {
 		return x
 	}
 	return y
+}
+func generateParenthesis(n int) []string {
+
 }
