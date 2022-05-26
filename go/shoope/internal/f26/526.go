@@ -266,3 +266,13 @@ func addTwoNumbers(l1, l2 *ListNode) (head *ListNode) {
 	}
 	return
 }
+func moveZeroes(nums []int) {
+	l, r, n := 0, 0, len(nums)
+	for r < n {
+		if nums[r] != 0 {
+			nums[r], nums[l] = nums[l], nums[r]
+			l++ //左指针，
+		}
+		r++
+	}
+}
