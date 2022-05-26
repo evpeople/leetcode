@@ -273,6 +273,3 @@ func min(x, y int) int {
 	}
 	return y
 }
-func generateParenthesis(n int) []string {
-
-}
