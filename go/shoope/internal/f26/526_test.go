@@ -97,3 +97,24 @@ func Test_moveZeroes(t *testing.T) {
 		})
 	}
 }
+
+func Test_addTwoNumbers2(t *testing.T) {
+	type args struct {
+		l1 *ListNode
+		l2 *ListNode
+	}
+	tests := []struct {
+		name string
+		args args
+		want *ListNode
+	}{
+		{"test", args{l1: &ListNode{7, &ListNode{2, &ListNode{4, &ListNode{3, nil}}}}, l2: &ListNode{5, &ListNode{6, &ListNode{4, nil}}}}, &ListNode{0, nil}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := addTwoNumbers2(tt.args.l1, tt.args.l2); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("addTwoNumbers2() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
