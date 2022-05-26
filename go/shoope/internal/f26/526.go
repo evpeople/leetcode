@@ -171,3 +171,20 @@ func maxSlidingWindow(nums []int, k int) []int {
 	}
 	return ans
 }
+func deleteDuplicates(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil {
+		return head
+	}
+	ans := &ListNode{0, head}
+	cur := ans
+	for cur.Next != nil && cur.Next.Next != nil {
+		if tmp := cur.Next.Val; tmp == cur.Next.Next.Val {
+			for cur.Next != nil && cur.Next.Val == tmp {
+				cur.Next = cur.Next.Next
+			}
+		} else {
+			cur = cur.Next
+		}
+	}
+	return ans.Next
+}
