@@ -218,3 +218,23 @@ func fib(n int) int {
 	res := pow(matrix{{1, 1}, {1, 0}}, n-1)
 	return res[0][0]
 }
+
+type TreeNode struct {
+	Val   int
+	Left  *TreeNode
+	Right *TreeNode
+}
+
+func invertTree(root *TreeNode) *TreeNode {
+	if root == nil {
+		return nil
+	}
+	if root.Left == nil && root.Right == nil {
+		return root
+	}
+	pL := root.Left
+	pR := root.Right
+	root.Left = invertTree(pR)
+	root.Right = invertTree(pL)
+	return root
+}
