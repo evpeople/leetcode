@@ -349,3 +349,53 @@ func addTwoNumbers2(l1 *ListNode, l2 *ListNode) *ListNode {
 	}
 	return head
 }
+
+type MinStack struct {
+	stack    []int
+	minStack []int
+}
+
+func Constructor() MinStack {
+	return MinStack{
+		stack:    []int{},
+		minStack: []int{},
+	}
+}
+
+func (this *MinStack) Push(val int) {
+	this.stack = append(this.stack, val)
+	if len(this.stack) == 1 {
+		this.minStack = append(this.minStack, val)
+		return
+	}
+	if this.stack[len(this.stack)-1] < this.minStack[len(this.minStack)-1] {
+		this.minStack = append(this.minStack, val)
+	} else {
+		this.minStack = append(this.minStack, this.minStack[len(this.minStack)-1])
+	}
+}
+
+func (this *MinStack) Pop() {
+	this.stack = this.stack[:len(this.stack)-1]
+	this.minStack = this.minStack[:len(this.minStack)-1]
+}
+
+func (this *MinStack) Top() int {
+	return this.stack[len(this.stack)-1]
+}
+
+func (this *MinStack) GetMin() int {
+	return this.minStack[len(this.minStack)-1]
+}
+func MiStack() []int {
+	t := Constructor()
+	t.Push(-2)
+	t.Push(0)
+	t.Push(-3)
+	tan := []int{}
+	tan = append(tan, t.GetMin())
+	t.Pop()
+	tan = append(tan, t.Top())
+	tan = append(tan, t.GetMin())
+	return tan
+}
