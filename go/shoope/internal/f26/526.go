@@ -99,3 +99,14 @@ func mergeKLists(lists []*ListNode) *ListNode {
 	}
 	return dummy.Next
 }
+
+func climbStairs(n int) int {
+	// dp := []int{0, 1, 2}
+	dp := make([]int, 0, 3)
+
+	dp = []int{0, 1, 2}
+	for i := 3; i < n+1; i++ {
+		dp[i%3] = dp[(i+1)%3] + dp[(i+2)%3]
+	}
+	return dp[n%3]
+}
