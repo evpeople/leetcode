@@ -87,3 +87,24 @@ func postorderTraversal(root *TreeNode) []int {
 	tmp = append(tmp, root.Val)
 	return tmp
 }
+func combine(n int, k int) (ans [][]int) {
+	tmp := []int{}
+	var dfs func(int)
+	dfs = func(cur int) {
+		if len(tmp)+(n-cur+1) < k {
+			return
+		}
+		if len(tmp) == k {
+			comb := make([]int, k)
+			copy(comb, tmp)
+			ans = append(ans, comb)
+			return
+		}
+		tmp = append(tmp, cur)
+		dfs(cur + 1)
+		tmp = tmp[:len(tmp)-1]
+		dfs(cur + 1)
+	}
+	dfs(1)
+	return
+}
