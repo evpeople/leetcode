@@ -73,3 +73,17 @@ func detectCycle(head *ListNode) *ListNode {
 	}
 	return nil
 }
+func postorderTraversal(root *TreeNode) []int {
+	var tmp []int
+	if root == nil {
+		return nil
+	}
+	if root.Left != nil {
+		tmp = append(tmp, postorderTraversal(root.Left)...)
+	}
+	if root.Right != nil {
+		tmp = append(tmp, postorderTraversal(root.Right)...)
+	}
+	tmp = append(tmp, root.Val)
+	return tmp
+}
