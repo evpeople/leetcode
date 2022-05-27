@@ -48,3 +48,6 @@ func findRepeatNumber(nums []int) int {
 	}
 	return 0
 }
+func finde(wdsa int)int{
+	return 1
+}
