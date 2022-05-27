@@ -2,6 +2,7 @@ package f26
 
 import (
 	"container/heap"
+	"math"
 	"sort"
 )
 
@@ -350,43 +351,44 @@ func addTwoNumbers2(l1 *ListNode, l2 *ListNode) *ListNode {
 	return head
 }
 
-type MinStack struct {
-	stack    []int
-	minStack []int
-}
+// type MinStack struct {
+// 	stack    []int
+// 	minStack []int
+// }
 
-func Constructor() MinStack {
-	return MinStack{
-		stack:    []int{},
-		minStack: []int{},
-	}
-}
+// func Constructor() MinStack {
+// 	return MinStack{
+// 		stack:    []int{},
+// 		minStack: []int{},
+// 	}
+// }
 
-func (this *MinStack) Push(val int) {
-	this.stack = append(this.stack, val)
-	if len(this.stack) == 1 {
-		this.minStack = append(this.minStack, val)
-		return
-	}
-	if this.stack[len(this.stack)-1] < this.minStack[len(this.minStack)-1] {
-		this.minStack = append(this.minStack, val)
-	} else {
-		this.minStack = append(this.minStack, this.minStack[len(this.minStack)-1])
-	}
-}
+// func (this *MinStack) Push(val int) {
+// 	this.stack = append(this.stack, val)
+// 	if len(this.stack) == 1 {
+// 		this.minStack = append(this.minStack, val)
+// 		return
+// 	}
+// 	if this.stack[len(this.stack)-1] < this.minStack[len(this.minStack)-1] {
+// 		this.minStack = append(this.minStack, val)
+// 	} else {
+// 		this.minStack = append(this.minStack, this.minStack[len(this.minStack)-1])
+// 	}
+// }
 
-func (this *MinStack) Pop() {
-	this.stack = this.stack[:len(this.stack)-1]
-	this.minStack = this.minStack[:len(this.minStack)-1]
-}
+// func (this *MinStack) Pop() {
+// 	this.stack = this.stack[:len(this.stack)-1]
+// 	this.minStack = this.minStack[:len(this.minStack)-1]
+// }
 
-func (this *MinStack) Top() int {
-	return this.stack[len(this.stack)-1]
-}
+// func (this *MinStack) Top() int {
+// 	return this.stack[len(this.stack)-1]
+// }
 
-func (this *MinStack) GetMin() int {
-	return this.minStack[len(this.minStack)-1]
-}
+// func (this *MinStack) GetMin() int {
+// 	return this.minStack[len(this.minStack)-1]
+// }
+
 func MiStack() []int {
 	t := Constructor()
 	t.Push(-2)
@@ -398,4 +400,46 @@ func MiStack() []int {
 	tan = append(tan, t.Top())
 	tan = append(tan, t.GetMin())
 	return tan
+}
+
+type MinStack struct {
+	stack []int
+	//我们存每个值与当前最小值 min 的差值 （val-min）：
+	min  int
+	size int
+}
+
+func Constructor() MinStack {
+	return MinStack{[]int{}, math.MaxInt64, 0}
+}
+
+func (this *MinStack) Push(val int) {
+	if this.size == 0 {
+		this.min = val
+	}
+	this.stack = append(this.stack, val-this.min)
+	if this.min > val {
+		this.min = val
+	}
+	this.size++
+}
+
+func (this *MinStack) Pop() {
+	if this.stack[len(this.stack)-1] < 0 {
+		this.min -= this.stack[len(this.stack)-1]
+	}
+	this.stack = this.stack[:this.size-1]
+	this.size--
+}
+
+func (this *MinStack) Top() int {
+	if this.stack[this.size-1] >= 0 {
+		return this.min + this.stack[this.size-1]
+	}
+	return this.min
+
+}
+
+func (this *MinStack) GetMin() int {
+	return this.min
 }
