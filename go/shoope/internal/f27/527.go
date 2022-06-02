@@ -108,3 +108,29 @@ func combine(n int, k int) (ans [][]int) {
 	dfs(1)
 	return
 }
+
+// func removeNthFromEnd(head *ListNode, n int) *ListNode {
+// 	cur := head
+// 	tail := head
+// 	for i := 0; i < n+1; i++ {
+// 		tail = tail.Next
+// 	}
+// 	for tail != nil {
+// 		tail = tail.Next
+// 		cur = cur.Next
+// 	}
+// 	cur.Next = cur.Next.Next
+// 	return head
+// }
+func removeNthFromEnd(head *ListNode, n int) *ListNode {
+	dummy := &ListNode{0, head}
+	first, second := head, dummy
+	for i := 0; i < n; i++ {
+		first = first.Next
+	}
+	for ; first != nil; first = first.Next {
+		second = second.Next
+	}
+	second.Next = second.Next.Next
+	return dummy.Next
+}
